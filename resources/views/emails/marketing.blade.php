@@ -69,8 +69,8 @@
         <div class="header">
 
             <div class="header-logos">
-                <img src="{{ assets('assets/logo-1.jpeg') }}" alt="Logo MyOpinion">
-                <img src="{{ assets('assets/logo-2.png') }}" alt="Logo Nakani">
+                <img src="{{ asset('assets/logo-1.jpeg') }}" alt="Logo MyOpinion">
+                <img src="{{ asset('assets/logo-2.png') }}" alt="Logo Nakani">
             </div>
 
             <h1 style="margin: 0;">MyOpinion & NakAni</h1>
@@ -89,16 +89,16 @@
 
             <div class="social-icons" style="margin-bottom: 10px;">
                 <a href="#" target="_blank">
-                    <img src="{{ assets('assets/facebook.png') }}" alt="Facebook">
+                    <img src="{{ asset('assets/facebook.png') }}" alt="Facebook">
                 </a>
                 <a href="#" target="_blank">
-                    <img src="{{ assets('assets/instagram.png') }}" alt="Instagram">
+                    <img src="{{ asset('assets/instagram.png') }}" alt="Instagram">
                 </a>
                 <a href="#" target="_blank">
-                    <img src="{{ assets('assets/linkedin.png') }}" alt="LinkedIn">
+                    <img src="{{ asset('assets/linkedin.png') }}" alt="LinkedIn">
                 </a>
                 <a href="#" target="_blank">
-                    <img src="{{ assets('assets/twitter.png') }}" alt="Twitter">
+                    <img src="{{ asset('assets/twitter.png') }}" alt="Twitter">
                 </a>
             </div>
 
