@@ -63,22 +63,22 @@
             margin: 30px auto;
         }
 
-        /* ➜ FOOTER MODERNE AVEC FOND */
+        /* FOOTER GRIS AMÉLIORÉ */
         .footer {
             text-align: center;
             padding: 25px 20px;
-            background: linear-gradient(135deg, #4637CE, #3427A5);
-            color: #dbe4ff;
+            background: #f1f1f4;
+            color: #555;
             font-size: 12px;
             border-radius: 0 0 12px 12px;
         }
         .footer a {
-            color: #ffffff;
+            color: #333;
         }
         .social-icons img {
             width: 26px;
             margin: 0 6px;
-            filter: brightness(0) invert(1); /* Icônes blanches */
+            filter: none;
         }
     </style>
 </head>
@@ -105,7 +105,7 @@
 
     <div class="divider"></div>
 
-    <!-- FOOTER AVEC FOND -->
+    <!-- FOOTER GRIS -->
     <div class="footer">
 
         <div class="social-icons" style="margin-bottom: 10px;">
