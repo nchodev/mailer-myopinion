@@ -30,7 +30,7 @@ class ContactMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: $this->getSubject(),
+            subject: $this->data['subject'],
         );
     }
 
@@ -47,20 +47,7 @@ class ContactMail extends Mailable
         );
     }
 
-    /**
-     * Determine subject based on type.
-     */
-    private function getSubject(): string
-    {
-        return match ($this->type) {
-            'standard'     => 'Message MyOpinion',
-            'prospects'     => 'Prospect – Nouveau message MyOpinion',
-            'marketing'     => 'MyOpinion Global Corporation',
-            'support'       => 'Support – Assistance MyOpinion',
-            'notification'  => 'Notification – MyOpinion',
-            default         => 'Message MyOpinion',
-        };
-    }
+  
 
     /**
      * Load view template depending on mail type.

@@ -18,6 +18,7 @@ public function sendMail(Request $request)
 {
     $request->validate([
         'type' => 'required|string|in:standard,prospects,marketing,support,notification',
+        'subject' => 'required|string|max:255',
         'emails' => 'required|array|max:10',
         'emails.*' => 'email',
         'cc' => 'nullable|array|max:10',
@@ -33,6 +34,7 @@ public function sendMail(Request $request)
 
     foreach ($request->emails as $email) {
         $mail = new ContactMail([
+            'subject' => $request->subject,
             'message' => $request->message
         ], $request->type);
 
@@ -51,7 +53,7 @@ public function sendMail(Request $request)
         Mail::to($email)->send($mail);
     }
 
-    return back()->with('success', 'Email envoyé avec succès !');
+    return back()->with('success', 'Email envoyé avec succès à ' . count($request->emails) . ' destinataires.');
 }
 
 
