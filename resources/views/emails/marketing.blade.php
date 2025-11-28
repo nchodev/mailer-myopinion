@@ -2,110 +2,124 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>MyOpinion – Nouveau prospect</title>
+    <title>MyOpinion – Marketing</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
         body {
-            background: #f4f7fa;
-            font-family: 'Inter', Arial, sans-serif;
             margin: 0;
             padding: 0;
-            color: #333;
+            background: #fafafa;
+            font-family: 'Inter', Arial, sans-serif;
+            color: #222;
         }
         .container {
-            max-width: 650px;
+            max-width: 640px;
             margin: auto;
             background: #ffffff;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border-radius: 12px;
+            padding: 0;
         }
         .header {
-            background: linear-gradient(135deg, #3b82f6, #0ea5e9);
-            padding: 20px;
-            color: white;
             text-align: center;
+            padding: 25px 20px;
         }
-        .header-logos {
-            width: 100%;
+        .logos img {
+            height: 46px;
+            margin: 0 8px;
+            opacity: 0.95;
+        }
+        .hero {
+            background: #4637CE;
+            padding: 35px 25px;
             text-align: center;
-            margin-bottom: 12px;
+            border-radius: 8px;
+            color: #ffffff;
+            margin: 0 0 30px;
+            line-height: 1.4;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
-        .header-logos img {
-            height: 50px;
-            margin: 0 10px;
+        .hero h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0 0 12px;
+            color: #ffffff;
+        }
+        .hero p {
+            font-size: 15px;
+            color: #e2e5e9;
+            margin: 0;
         }
         .content {
-            padding: 30px 25px;
-            line-height: 1.6;
+            padding: 30px 26px;
             font-size: 15px;
+            line-height: 1.6;
+            color: #333;
         }
-        .info-section {
-            background: #f9fafb;
-            padding: 20px;
-            border-left: 4px solid #0ea5e9;
-            margin-top: 25px;
-            border-radius: 6px;
+        .divider {
+            width: 60%;
+            height: 1px;
+            background: #e5e7eb;
+            margin: 30px auto;
         }
+
+        /* ➜ FOOTER MODERNE AVEC FOND */
         .footer {
             text-align: center;
-            padding: 15px;
+            padding: 25px 20px;
+            background: linear-gradient(135deg, #4637CE, #3427A5);
+            color: #dbe4ff;
             font-size: 12px;
-            color: #777;
+            border-radius: 0 0 12px 12px;
+        }
+        .footer a {
+            color: #ffffff;
         }
         .social-icons img {
-            width: 28px;
+            width: 26px;
             margin: 0 6px;
-            vertical-align: middle;
+            filter: brightness(0) invert(1); /* Icônes blanches */
         }
     </style>
 </head>
-
 <body>
-    <div class="container">
-
-        <!-- HEADER AVEC DEUX LOGOS -->
-        <div class="header">
-
-            <div class="header-logos">
-                <img src="{{ asset('assets/logo-1.jpeg') }}" alt="Logo MyOpinion">
-                <img src="{{ asset('assets/logo-2.png') }}" alt="Logo Nakani">
-            </div>
-
-            <h1 style="margin: 0;">MyOpinion & NakAni</h1>
-            <p style="margin:4px 0 0;font-size:14px;">Experts africains en solutions web & mobiles souveraines</p>
+<div class="container">
+    <!-- HEADER -->
+    <div class="header">
+        <div class="logos">
+            <img src="{{ asset('assets/logo-1.jpeg') }}" alt="Logo MyOpinion">
+            <img src="{{ asset('assets/logo-2.png') }}" alt="Logo Nakani">
         </div>
-
-        <!-- CONTENU DU MAIL -->
-        <div class="content">
-            <div class="info-section">
-                {!! $data['message'] !!}
-            </div>
-        </div>
-
-        <!-- FOOTER + ICÔNES RÉSEAUX -->
-        <div class="footer">
-
-            <div class="social-icons" style="margin-bottom: 10px;">
-                <a href="#" target="_blank">
-                    <img src="{{ asset('assets/facebook.png') }}" alt="Facebook">
-                </a>
-                <a href="#" target="_blank">
-                    <img src="{{ asset('assets/instagram.png') }}" alt="Instagram">
-                </a>
-                <a href="#" target="_blank">
-                    <img src="{{ asset('assets/linkedin.png') }}" alt="LinkedIn">
-                </a>
-                <a href="#" target="_blank">
-                    <img src="{{ asset('assets/twitter.png') }}" alt="Twitter">
-                </a>
-            </div>
-
-            {{ config('app.name') }} — &copy; {{ date('Y') }}<br>
-            Solutions digitales pour l’Afrique et le monde.
-        </div>
-
     </div>
+
+    <!-- HERO MARKETING -->
+    <div class="hero">
+        <h1>Votre solution digitale prend une nouvelle dimension</h1>
+        <p>Innovation, souveraineté et performance au service de votre croissance.</p>
+    </div>
+
+    <!-- CONTENU -->
+    <div class="content">
+        {!! $data['message'] !!}
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- FOOTER AVEC FOND -->
+    <div class="footer">
+
+        <div class="social-icons" style="margin-bottom: 10px;">
+            <a href="#"><img src="{{ asset('assets/facebook.png') }}" alt="Facebook"></a>
+            <a href="#"><img src="{{ asset('assets/instagram.png') }}" alt="Instagram"></a>
+            <a href="#"><img src="{{ asset('assets/linkedin.png') }}" alt="LinkedIn"></a>
+            <a href="#"><img src="{{ asset('assets/twitter.png') }}" alt="Twitter"></a>
+        </div>
+
+        {{ config('app.name') }} — © {{ date('Y') }}<br>
+        Propulsé par <strong>MyOpinion</strong> & <strong>Nakani</strong>
+    </div>
+
+</div>
+
 </body>
 </html>
