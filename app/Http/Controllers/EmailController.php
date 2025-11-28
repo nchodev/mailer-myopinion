@@ -14,27 +14,61 @@ class EmailController extends Controller
         return view('contact');
     }
 
-   public function sendMail(Request $request)
+public function sendMail(Request $request)
 {
     $request->validate([
         'type' => 'required|string|in:standard,prospects,marketing,support,notification',
-        'name' => 'string|max:255',
+
         'emails' => 'required|array|max:10',
         'emails.*' => 'email',
-        'message' => 'string',
+
+        'cc' => 'nullable|array|max:10',
+        'cc.*' => 'nullable|email',
+
+        'files.*' => 'nullable|file|max:5120',
+        'message' => 'nullable|string',
     ]);
 
+    // Nettoyage des CC (supprime null, "", etc.)
+    $cc = collect($request->cc)
+        ->filter(fn($item) => !empty($item))
+        ->values()
+        ->toArray();
+
     foreach ($request->emails as $email) {
-        Mail::to($email)->send(new ContactMail(
-            [
-                'name' => $request->name,
-                'message' => $request->message
-            ],
-            $request->type
-        ));
+
+        $mail = (new ContactMail(
+                [
+                    'message' => $request->message
+                ],
+                $request->type
+            ));
+
+        // → Ajouter CC seulement si le tableau n’est pas vide
+        if (!empty($cc)) {
+            $mail->cc($cc);
+        }
+
+        // Gérer les pièces jointes sans erreur
+        if ($request->hasFile('files')) {
+            foreach ($request->file('files') as $file) {
+                $mail->attach(
+                    $file->getRealPath(),
+                    [
+                        'as' => $file->getClientOriginalName(),
+                        'mime' => $file->getMimeType(),
+                    ]
+                );
+            }
+        }
+
+        Mail::to($email)->send($mail);
     }
 
-    return back()->with('success', 'Email envoyé avec succès à '.count($request->emails).' destinataire(s) !');
+    return back()->with('success', 'Email envoyé avec succès !');
 }
+
+
+
 
 }

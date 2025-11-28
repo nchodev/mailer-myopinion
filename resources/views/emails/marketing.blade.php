@@ -35,7 +35,7 @@
             text-align: center;
             border-radius: 8px;
             color: #ffffff;
-            margin: 0 0 30px;
+            margin: 0 0 10px;
             line-height: 1.4;
             box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
@@ -43,7 +43,6 @@
             font-size: 24px;
             font-weight: 700;
             margin: 0 0 12px;
-            color: #ffffff;
         }
         .hero p {
             font-size: 15px;
@@ -51,16 +50,10 @@
             margin: 0;
         }
         .content {
-            padding: 30px 26px;
+            padding: 10px 6px;
             font-size: 15px;
             line-height: 1.6;
             color: #333;
-        }
-        .divider {
-            width: 60%;
-            height: 1px;
-            background: #e5e7eb;
-            margin: 30px auto;
         }
 
         /* FOOTER GRIS AMÉLIORÉ */
@@ -80,10 +73,16 @@
             margin: 0 6px;
             filter: none;
         }
+        .phones {
+            margin: 10px 0;
+            font-size: 13px;
+            color: #444;
+        }
     </style>
 </head>
 <body>
 <div class="container">
+
     <!-- HEADER -->
     <div class="header">
         <div class="logos">
@@ -92,7 +91,7 @@
         </div>
     </div>
 
-    <!-- HERO MARKETING -->
+    <!-- HERO -->
     <div class="hero">
         <h1>Votre solution digitale prend une nouvelle dimension</h1>
         <p>Innovation, souveraineté et performance au service de votre croissance.</p>
@@ -102,9 +101,6 @@
     <div class="content">
         {!! $data['message'] !!}
     </div>
-
-    <div class="divider"></div>
-
     <!-- FOOTER GRIS -->
     <div class="footer">
 
@@ -115,11 +111,16 @@
             <a href="#"><img src="{{ asset('assets/client-4.png') }}" alt="Client 4"></a>
         </div>
 
+        <!-- NUMÉROS DE CONTACT -->
+        <div class="phones">
+            📞 +225 05 05 34 03 03<br>
+            📞 +225 07 00 09 00 10
+        </div>
+
         {{ config('app.name') }} — © {{ date('Y') }}<br>
         Propulsé par <strong>MyOpinion</strong> & <strong>Nakani</strong>
     </div>
 
 </div>
-
 </body>
 </html>

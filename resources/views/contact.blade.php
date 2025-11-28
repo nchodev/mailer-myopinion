@@ -23,8 +23,8 @@
     </header>
 
     <!-- SIDEBAR -->
-    <aside id="sidebar" 
-        class="fixed md:static top-0 left-0 h-full w-64 bg-white shadow-xl md:shadow-none 
+    <aside id="sidebar"
+        class="fixed md:static top-0 left-0 h-full w-64 bg-white shadow-xl md:shadow-none
                transform -translate-x-full md:translate-x-0 transition-all duration-300 z-40 p-6">
 
         <h2 class="text-xl font-semibold mb-6 hidden md:block">MyOpinion Mail</h2>
@@ -45,7 +45,7 @@
         </div>
     </aside>
 
-    <!-- BACKDROP (mobile) -->
+    <!-- BACKDROP -->
     <div id="backdrop" class="fixed inset-0 bg-black bg-opacity-40 hidden z-30"></div>
 
     <!-- MAIN -->
@@ -67,7 +67,7 @@
                     </div>
                 @endif
 
-                <form method="POST" action="{{ route('email.send') }}" class="space-y-6">
+                <form method="POST" action="{{ route('email.send') }}" enctype="multipart/form-data" class="space-y-6">
                     @csrf
 
                     <!-- TYPE DE MAIL -->
@@ -80,14 +80,6 @@
                             <option value="support">Support</option>
                             <option value="notification">Notification</option>
                         </select>
-                    </div>
-
-                    <!-- NOM -->
-                    <div>
-                        <label class="text-sm font-medium">Nom</label>
-                        <input type="text" name="name"
-                               class="w-full mt-1 px-4 py-3 rounded-lg border focus:ring-indigo-500"
-                               placeholder="Votre nom">
                     </div>
 
                     <!-- EMAILS -->
@@ -109,17 +101,40 @@
                         </button>
                     </div>
 
-                    <!-- ÉDITEUR (QUILL) -->
+                    <!-- CC -->
+                    <div>
+                        <label class="text-sm font-medium">CC (Copie – optionnel)</label>
+
+                        <div id="cc-container" class="space-y-3 mt-2">
+                            <div class="flex items-center gap-3">
+                                <input type="email" name="cc[]"
+                                       class="flex-1 px-4 py-3 rounded-lg border focus:ring-indigo-500"
+                                       placeholder="email en copie">
+                                <button class="hidden remove-cc text-red-500 font-bold text-xl">×</button>
+                            </div>
+                        </div>
+
+                        <button type="button" id="add-cc"
+                                class="mt-3 px-3 py-2 rounded-lg bg-indigo-50 text-indigo-700 border hover:bg-indigo-100">
+                            + Ajouter en copie
+                        </button>
+                    </div>
+
+                    <!-- FICHIERS -->
+                    <div>
+                        <label class="text-sm font-medium">Pièces jointes</label>
+                        <input type="file" name="files[]" multiple
+                               class="w-full mt-2 px-4 py-3 rounded-lg border bg-white focus:ring-indigo-500">
+                    </div>
+
+                    <!-- EDITEUR QUILL -->
                     <div>
                         <label class="text-sm font-medium">Message</label>
 
                         <div id="editor" class="bg-white border rounded-lg h-48"></div>
-
-                        <!-- Champ caché qui reçoit le HTML -->
                         <textarea name="message" id="message" class="hidden"></textarea>
                     </div>
 
-                    <!-- BTN -->
                     <button type="submit"
                             class="w-full py-3 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700">
                         ✉️ Envoyer l’email
@@ -128,7 +143,6 @@
             </div>
         </div>
     </main>
-
 
     <!-- SCRIPTS -->
     <script>
@@ -147,8 +161,7 @@
             backdrop.classList.add("hidden");
         });
 
-
-        /* --- RICH TEXT EDITOR (QUILL) --- */
+        /* --- QUILL --- */
         const quill = new Quill('#editor', {
             theme: 'snow',
             placeholder: 'Écris ton message ici...',
@@ -163,20 +176,16 @@
             }
         });
 
-        // Enregistrer le HTML dans un <textarea> avant l’envoi
         document.querySelector("form").addEventListener("submit", () => {
             document.getElementById("message").value = quill.root.innerHTML;
         });
-
 
         /* --- EMAILS DYNAMIQUES --- */
         const container = document.getElementById("emails-container");
         const addBtn = document.getElementById("add-email");
 
         addBtn.addEventListener("click", () => {
-            if (container.querySelectorAll("input").length >= 10)
-                return alert("Maximum 10 emails autorisés.");
-
+            if (container.children.length >= 10) return alert("Maximum 10 emails");
             const div = document.createElement("div");
             div.className = "flex items-center gap-3";
 
@@ -191,6 +200,30 @@
 
         container.addEventListener("click", e => {
             if (e.target.classList.contains("remove-email")) {
+                e.target.parentElement.remove();
+            }
+        });
+
+        /* --- CC DYNAMIQUES --- */
+        const ccContainer = document.getElementById("cc-container");
+        const ccAddBtn = document.getElementById("add-cc");
+
+        ccAddBtn.addEventListener("click", () => {
+            if (ccContainer.children.length >= 10) return alert("Maximum 10 CC");
+            const div = document.createElement("div");
+            div.className = "flex items-center gap-3";
+
+            div.innerHTML = `
+                <input type="email" name="cc[]"
+                       class="flex-1 px-4 py-3 rounded-lg border focus:ring-indigo-500"
+                       placeholder="email en copie">
+                <button type="button" class="remove-cc text-red-500 font-bold text-xl">×</button>
+            `;
+            ccContainer.appendChild(div);
+        });
+
+        ccContainer.addEventListener("click", e => {
+            if (e.target.classList.contains("remove-cc")) {
                 e.target.parentElement.remove();
             }
         });
