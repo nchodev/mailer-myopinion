@@ -55,7 +55,7 @@ class ContactMail extends Mailable
         return match ($this->type) {
             'standard'     => 'Message MyOpinion',
             'prospects'     => 'Prospect – Nouveau message MyOpinion',
-            'marketing'     => 'Campagne marketing – MyOpinion',
+            'marketing'     => 'MyOpinion Global Corporation',
             'support'       => 'Support – Assistance MyOpinion',
             'notification'  => 'Notification – MyOpinion',
             default         => 'Message MyOpinion',
