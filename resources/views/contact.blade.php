@@ -4,11 +4,8 @@
     <meta charset="UTF-8">
     <title>MyOpinion – Mail Writer</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
-
-    <!-- Quill Rich Editor -->
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-
     <style>
         body { font-family: 'Inter', sans-serif; }
     </style>
@@ -85,39 +82,34 @@
                     <!-- EMAILS -->
                     <div>
                         <label class="text-sm font-medium">Liste d'emails</label>
+                        <input type="text" id="emails-input"
+                               class="w-full mt-2 px-4 py-3 rounded-lg border focus:ring-indigo-500"
+                               placeholder="exemple@domaine.com, test@domaine.com">
+                        <small class="text-gray-400 text-xs">Séparez plusieurs emails par une virgule.</small>
+                    </div>
 
-                        <div id="emails-container" class="space-y-3 mt-2">
-                            <div class="flex items-center gap-3">
-                                <input type="email" name="emails[]" required
-                                       class="flex-1 px-4 py-3 rounded-lg border focus:ring-indigo-500"
-                                       placeholder="exemple@domaine.com">
-                                <button class="hidden remove-email text-red-500 font-bold text-xl">×</button>
-                            </div>
-                        </div>
-
-                        <button type="button" id="add-email"
-                                class="mt-3 px-3 py-2 rounded-lg bg-indigo-50 text-indigo-700 border hover:bg-indigo-100">
-                            + Ajouter un destinataire
+                    <!-- BOUTONS CC / CCI -->
+                    <div class="flex gap-4 mt-2">
+                        <button type="button" id="show-cc"
+                                class="px-3 py-2 rounded-lg bg-indigo-50 text-indigo-700 border hover:bg-indigo-100">
+                            + Ajouter CC
+                        </button>
+                        <button type="button" id="show-bcc"
+                                class="px-3 py-2 rounded-lg bg-indigo-50 text-indigo-700 border hover:bg-indigo-100">
+                            + Ajouter CCI
                         </button>
                     </div>
 
                     <!-- CC -->
-                    <div>
-                        <label class="text-sm font-medium">CC (Copie – optionnel)</label>
+                    <div id="cc-container" class="space-y-3 mt-2 hidden">
+                        <input type="text" name="cc-input" placeholder="email1@domaine.com, email2@domaine.com"
+                               class="w-full px-4 py-3 rounded-lg border focus:ring-indigo-500">
+                    </div>
 
-                        <div id="cc-container" class="space-y-3 mt-2">
-                            <div class="flex items-center gap-3">
-                                <input type="email" name="cc[]"
-                                       class="flex-1 px-4 py-3 rounded-lg border focus:ring-indigo-500"
-                                       placeholder="email en copie">
-                                <button class="hidden remove-cc text-red-500 font-bold text-xl">×</button>
-                            </div>
-                        </div>
-
-                        <button type="button" id="add-cc"
-                                class="mt-3 px-3 py-2 rounded-lg bg-indigo-50 text-indigo-700 border hover:bg-indigo-100">
-                            + Ajouter en copie
-                        </button>
+                    <!-- CCI -->
+                    <div id="bcc-container" class="space-y-3 mt-2 hidden">
+                        <input type="text" name="bcc-input" placeholder="email1@domaine.com, email2@domaine.com"
+                               class="w-full px-4 py-3 rounded-lg border focus:ring-indigo-500">
                     </div>
 
                     <!-- FICHIERS -->
@@ -127,10 +119,9 @@
                                class="w-full mt-2 px-4 py-3 rounded-lg border bg-white focus:ring-indigo-500">
                     </div>
 
-                    <!-- EDITEUR QUILL -->
+                    <!-- MESSAGE -->
                     <div>
                         <label class="text-sm font-medium">Message</label>
-
                         <div id="editor" class="bg-white border rounded-lg h-48"></div>
                         <textarea name="message" id="message" class="hidden"></textarea>
                     </div>
@@ -144,90 +135,59 @@
         </div>
     </main>
 
-    <!-- SCRIPTS -->
-    <script>
-        /* --- MENU MOBILE --- */
-        const sidebar = document.getElementById("sidebar");
-        const burger = document.getElementById("burger");
-        const backdrop = document.getElementById("backdrop");
+<script>
+    /* --- MENU MOBILE --- */
+    const sidebar = document.getElementById("sidebar");
+    const burger = document.getElementById("burger");
+    const backdrop = document.getElementById("backdrop");
+    burger.addEventListener("click", () => {
+        sidebar.classList.toggle("-translate-x-full");
+        backdrop.classList.toggle("hidden");
+    });
+    backdrop.addEventListener("click", () => {
+        sidebar.classList.add("-translate-x-full");
+        backdrop.classList.add("hidden");
+    });
 
-        burger.addEventListener("click", () => {
-            sidebar.classList.toggle("-translate-x-full");
-            backdrop.classList.toggle("hidden");
-        });
+    /* --- Quill --- */
+    const quill = new Quill('#editor', {
+        theme: 'snow',
+        placeholder: 'Écris ton message ici...',
+        modules: { toolbar: [['bold','italic','underline'], [{header:[1,2,3,false]}], ['link','blockquote'], [{list:'ordered'}, {list:'bullet'}], ['clean']] }
+    });
 
-        backdrop.addEventListener("click", () => {
-            sidebar.classList.add("-translate-x-full");
-            backdrop.classList.add("hidden");
-        });
+    /* --- Afficher CC / CCI --- */
+    document.getElementById("show-cc").addEventListener("click", () => {
+        document.getElementById("cc-container").classList.toggle("hidden");
+    });
+    document.getElementById("show-bcc").addEventListener("click", () => {
+        document.getElementById("bcc-container").classList.toggle("hidden");
+    });
 
-        /* --- QUILL --- */
-        const quill = new Quill('#editor', {
-            theme: 'snow',
-            placeholder: 'Écris ton message ici...',
-            modules: {
-                toolbar: [
-                    ['bold', 'italic', 'underline'],
-                    [{ 'header': [1, 2, 3, false] }],
-                    ['link', 'blockquote'],
-                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                    ['clean']
-                ]
-            }
-        });
+    /* --- Soumission formulaire --- */
+    document.querySelector("form").addEventListener("submit", e => {
+        document.getElementById("message").value = quill.root.innerHTML;
 
-        document.querySelector("form").addEventListener("submit", () => {
-            document.getElementById("message").value = quill.root.innerHTML;
-        });
+        const emailsInput = document.getElementById("emails-input").value;
+        const ccInput = document.querySelector("input[name='cc-input']")?.value || '';
+        const bccInput = document.querySelector("input[name='bcc-input']")?.value || '';
 
-        /* --- EMAILS DYNAMIQUES --- */
-        const container = document.getElementById("emails-container");
-        const addBtn = document.getElementById("add-email");
+        function createHidden(name, str) {
+            const arr = str.split(',').map(e => e.trim()).filter(e => e);
+            arr.forEach(email => {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = name + '[]';
+                input.value = email;
+                e.target.appendChild(input);
+            });
+        }
 
-        addBtn.addEventListener("click", () => {
-            if (container.children.length >= 10) return alert("Maximum 10 emails");
-            const div = document.createElement("div");
-            div.className = "flex items-center gap-3";
-
-            div.innerHTML = `
-                <input type="email" name="emails[]" required
-                       class="flex-1 px-4 py-3 rounded-lg border focus:ring-indigo-500"
-                       placeholder="exemple@domaine.com">
-                <button type="button" class="remove-email text-red-500 font-bold text-xl">×</button>
-            `;
-            container.appendChild(div);
-        });
-
-        container.addEventListener("click", e => {
-            if (e.target.classList.contains("remove-email")) {
-                e.target.parentElement.remove();
-            }
-        });
-
-        /* --- CC DYNAMIQUES --- */
-        const ccContainer = document.getElementById("cc-container");
-        const ccAddBtn = document.getElementById("add-cc");
-
-        ccAddBtn.addEventListener("click", () => {
-            if (ccContainer.children.length >= 10) return alert("Maximum 10 CC");
-            const div = document.createElement("div");
-            div.className = "flex items-center gap-3";
-
-            div.innerHTML = `
-                <input type="email" name="cc[]"
-                       class="flex-1 px-4 py-3 rounded-lg border focus:ring-indigo-500"
-                       placeholder="email en copie">
-                <button type="button" class="remove-cc text-red-500 font-bold text-xl">×</button>
-            `;
-            ccContainer.appendChild(div);
-        });
-
-        ccContainer.addEventListener("click", e => {
-            if (e.target.classList.contains("remove-cc")) {
-                e.target.parentElement.remove();
-            }
-        });
-    </script>
+        createHidden('emails', emailsInput);
+        createHidden('cc', ccInput);
+        createHidden('bcc', bccInput);
+    });
+</script>
 
 </body>
 </html>

@@ -18,47 +18,33 @@ public function sendMail(Request $request)
 {
     $request->validate([
         'type' => 'required|string|in:standard,prospects,marketing,support,notification',
-
         'emails' => 'required|array|max:10',
         'emails.*' => 'email',
-
         'cc' => 'nullable|array|max:10',
         'cc.*' => 'nullable|email',
-
+        'bcc' => 'nullable|array|max:10',
+        'bcc.*' => 'nullable|email',
         'files.*' => 'nullable|file|max:5120',
         'message' => 'nullable|string',
     ]);
 
-    // Nettoyage des CC (supprime null, "", etc.)
-    $cc = collect($request->cc)
-        ->filter(fn($item) => !empty($item))
-        ->values()
-        ->toArray();
+    $cc = collect($request->cc)->filter(fn($item) => !empty($item))->values()->toArray();
+    $bcc = collect($request->bcc)->filter(fn($item) => !empty($item))->values()->toArray();
 
     foreach ($request->emails as $email) {
+        $mail = new ContactMail([
+            'message' => $request->message
+        ], $request->type);
 
-        $mail = (new ContactMail(
-                [
-                    'message' => $request->message
-                ],
-                $request->type
-            ));
+        if (!empty($cc)) $mail->cc($cc);
+        if (!empty($bcc)) $mail->bcc($bcc);
 
-        // → Ajouter CC seulement si le tableau n’est pas vide
-        if (!empty($cc)) {
-            $mail->cc($cc);
-        }
-
-        // Gérer les pièces jointes sans erreur
         if ($request->hasFile('files')) {
             foreach ($request->file('files') as $file) {
-                $mail->attach(
-                    $file->getRealPath(),
-                    [
-                        'as' => $file->getClientOriginalName(),
-                        'mime' => $file->getMimeType(),
-                    ]
-                );
+                $mail->attach($file->getRealPath(), [
+                    'as' => $file->getClientOriginalName(),
+                    'mime' => $file->getMimeType(),
+                ]);
             }
         }
 
@@ -67,6 +53,7 @@ public function sendMail(Request $request)
 
     return back()->with('success', 'Email envoyé avec succès !');
 }
+
 
 
 
