@@ -71,11 +71,11 @@
                     <div>
                         <label class="text-sm font-medium">Type de mail</label>
                         <select name="type" class="w-full mt-1 px-4 py-3 rounded-lg border focus:ring-indigo-500">
-                            <option value="standard">Standard</option>
-                            <option value="prospects">Prospects</option>
+                            {{-- <option value="standard">Standard</option>
+                            <option value="prospects">Prospects</option> --}}
                             <option value="marketing">Marketing</option>
-                            <option value="support">Support</option>
-                            <option value="notification">Notification</option>
+                            {{-- <option value="support">Support</option>
+                            <option value="notification">Notification</option> --}}
                         </select>
                     </div>
 
