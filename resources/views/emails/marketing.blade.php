@@ -56,7 +56,6 @@
             color: #333;
         }
 
-        /* FOOTER GRIS AMÉLIORÉ */
         .footer {
             text-align: center;
             padding: 25px 20px;
@@ -69,8 +68,8 @@
             color: #333;
         }
         .social-icons img {
-            width: 26px;
-            margin: 0 6px;
+            width: 46px;
+            margin: 0 8px;
             filter: none;
         }
         .phones {
@@ -78,18 +77,24 @@
             font-size: 13px;
             color: #444;
         }
+        .marketing-label {
+            font-weight: bold;
+            margin-bottom: 6px;
+            display: block;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
 <div class="container">
 
     <!-- HEADER -->
-    <div class="header">
+    {{-- <div class="header">
         <div class="logos">
             <img src="{{ asset('assets/logo-1.jpeg') }}" alt="Logo MyOpinion">
             <img src="{{ asset('assets/logo-2.png') }}" alt="Logo Nakani">
         </div>
-    </div>
+    </div> --}}
 
     <!-- HERO -->
     <div class="hero">
@@ -101,17 +106,16 @@
     <div class="content">
         {!! $data['message'] !!}
     </div>
+
     <!-- FOOTER GRIS -->
     <div class="footer">
 
         <div class="social-icons" style="margin-bottom: 10px;">
-            <a href="#"><img src="{{ asset('assets/client-1.png') }}" alt="Client 1"></a>
-            <a href="#"><img src="{{ asset('assets/client-2.png') }}" alt="Client 2"></a>
-            <a href="#"><img src="{{ asset('assets/client-3.png') }}" alt="Client 3"></a>
-            <a href="#"><img src="{{ asset('assets/client-4.png') }}" alt="Client 4"></a>
+            <img src="{{ asset('assets/logo-1.jpeg') }}" alt="Logo MyOpinion">
+            <img src="{{ asset('assets/logo-2.png') }}" alt="Logo Nakani">
         </div>
 
-        <!-- NUMÉROS DE CONTACT -->
+        <span class="marketing-label">Équipe marketing</span>
         <div class="phones">
             📞 +225 05 05 34 03 03<br>
             📞 +225 07 00 09 00 10
