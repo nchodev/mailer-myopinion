@@ -55,11 +55,11 @@
             <!-- Type d'email -->
             <select name="type" form="send-mail-form"
                     class="px-3 py-2 rounded-lg border text-sm focus:ring-indigo-500">
-                <option value="standard">Email Standard</option>
-                <option value="prospects">Prospection</option>
+                {{-- <option value="standard">Email Standard</option>
+                <option value="prospects">Prospection</option> --}}
                 <option value="marketing">Marketing</option>
-                <option value="support">Support</option>
-                <option value="notification">Notification</option>
+                {{-- <option value="support">Support</option>
+                <option value="notification">Notification</option> --}}
             </select>
         </div>
 
