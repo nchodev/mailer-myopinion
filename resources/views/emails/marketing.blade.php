@@ -109,10 +109,10 @@
     <div class="footer">
 
         <div class="social-icons" style="margin-bottom: 10px;">
-            <a href="#"><img src="{{ asset('assets/facebook.png') }}" alt="Facebook"></a>
-            <a href="#"><img src="{{ asset('assets/instagram.png') }}" alt="Instagram"></a>
-            <a href="#"><img src="{{ asset('assets/linkedin.png') }}" alt="LinkedIn"></a>
-            <a href="#"><img src="{{ asset('assets/twitter.png') }}" alt="Twitter"></a>
+            <a href="#"><img src="{{ asset('assets/client-1.png') }}" alt="Client 1"></a>
+            <a href="#"><img src="{{ asset('assets/client-2.png') }}" alt="Client 2"></a>
+            <a href="#"><img src="{{ asset('assets/client-3.png') }}" alt="Client 3"></a>
+            <a href="#"><img src="{{ asset('assets/client-4.png') }}" alt="Client 4"></a>
         </div>
 
         {{ config('app.name') }} — © {{ date('Y') }}<br>
