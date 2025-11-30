@@ -89,16 +89,16 @@
 <div class="container">
 
     <!-- HEADER -->
-    {{-- <div class="header">
+    <div class="header">
         <div class="logos">
             <img src="{{ asset('assets/logo-1.jpeg') }}" alt="Logo MyOpinion">
             <img src="{{ asset('assets/logo-2.png') }}" alt="Logo Nakani">
         </div>
-    </div> --}}
+    </div>
 
     <!-- HERO -->
     <div class="hero">
-        <h1>Votre solution digitale prend une nouvelle dimension</h1>
+        <h1>Votre transformation digitale prend une nouvelle dimension</h1>
         <p>Innovation, souveraineté et performance au service de votre croissance.</p>
     </div>
 
@@ -111,8 +111,9 @@
     <div class="footer">
 
         <div class="social-icons" style="margin-bottom: 10px;">
-            <img src="{{ asset('assets/logo-1.jpeg') }}" alt="Logo MyOpinion">
-            <img src="{{ asset('assets/logo-2.png') }}" alt="Logo Nakani">
+            <img src="{{ asset('assets/client-1.png') }}" alt="client-1">
+            <img src="{{ asset('assets/client-2.png') }}" alt="client-2">
+            <img src="{{ asset('assets/client-3.png') }}" alt="client-3">
         </div>
 
         <span class="marketing-label">Équipe marketing</span>
