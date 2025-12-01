@@ -89,12 +89,12 @@
 <div class="container">
 
     <!-- HEADER -->
-    <div class="header">
+    {{-- <div class="header">
         <div class="logos">
             <img src="{{ asset('assets/logo-1.jpeg') }}" alt="Logo MyOpinion">
             <img src="{{ asset('assets/logo-2.png') }}" alt="Logo Nakani">
         </div>
-    </div>
+    </div> --}}
 
     <!-- HERO -->
     <div class="hero">
