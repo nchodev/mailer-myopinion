@@ -111,9 +111,9 @@
     <div class="footer">
 
         <div class="social-icons" style="margin-bottom: 10px;">
-            <img src="{{ asset('assets/client-1.png') }}" alt="client-1">
-            <img src="{{ asset('assets/client-2.png') }}" alt="client-2">
-            <img src="{{ asset('assets/client-3.png') }}" alt="client-3">
+            <img src="{{ asset('assets/p1.png') }}" alt="play console ">
+            <img src="{{ asset('assets/p2.png') }}" alt="app galery">
+            <img src="{{ asset('assets/p3.png') }}" alt="app store">
         </div>
 
         <span class="marketing-label">Équipe marketing</span>
