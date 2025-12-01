@@ -111,8 +111,8 @@
     <div class="footer">
 
         <div class="social-icons" style="margin-bottom: 10px;">
-            <img src="{{ asset('assets/p1.png') }}" alt="play console ">
-            <img src="{{ asset('assets/p2.png') }}" alt="app galery">
+            <img src="{{ asset('assets/p1.png') }}" alt="app galery ">
+            <img src="{{ asset('assets/google-play.png') }}" alt="google play">
             <img src="{{ asset('assets/p3.png') }}" alt="app store">
         </div>
 
