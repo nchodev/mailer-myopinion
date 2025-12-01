@@ -18,14 +18,14 @@ public function sendMail(Request $request)
 {
     $request->validate([
         'type' => 'required|string|in:standard,prospects,marketing,support,notification',
-        'subject' => 'required|string|max:255',
-        'emails' => 'required|array|max:10',
+        'subject' => 'required|string',
+        'emails' => 'required|array|max:50',
         'emails.*' => 'email',
-        'cc' => 'nullable|array|max:10',
+        'cc' => 'nullable|array|max:50',
         'cc.*' => 'nullable|email',
-        'bcc' => 'nullable|array|max:10',
+        'bcc' => 'nullable|array|max:50',
         'bcc.*' => 'nullable|email',
-        'files.*' => 'nullable|file|max:5120',
+        'files.*' => 'nullable|file',
         'message' => 'nullable|string',
     ]);
 
